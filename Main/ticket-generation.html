@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Ticket</title>
+    <link rel="stylesheet" type="text/css" href="ticket-generation.css">
+</head>
+<body>
+    <style>
+        .logo{
+              
+          position: absolute;
+          top: -30px;
+          left: -60px;
+          
+          height: 250px;
+          width: 400px;
+          /*mix-blend-mode: multiply;*/
+          
+        
+        }
+      
+        
+        </style>
+        
+        
+        <image class="logo" src="logo.png"/>
+    <div class="back">
+        <div class="container">
+            <h1>Generate Ticket using Ticket ID</h1>
+            <form action="ticket-generation.php" method="post">
+                <label for="ticket_id">Ticket ID:</label>
+                <input type="number" id="ticket_id" name="ticket_id" required>
+                
+                <input type="submit" value="Generate">
+                
+            </form>
+        </div>
+</div>
+</body>
+</html>

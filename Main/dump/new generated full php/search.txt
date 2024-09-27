@@ -1,0 +1,90 @@
+Sure, here is a sample PHP program that demonstrates the functionality of searching for flights based on certain criteria:
+
+Copy code
+<?php
+
+// Connect to the database
+$db = mysqli_connect("host", "username", "password", "dbname");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $fromCity = $_POST["from-city"];
+    $toCity = $_POST["to-city"];
+    $departureDate = $_POST["departure-date"];
+    $numPassengers = $_POST["num-passengers"];
+
+    // Query the database for flights
+    $query = "SELECT * FROM flights WHERE departure_city='$fromCity' AND arrival_city='$toCity' AND departure_date='$departureDate' AND seats_available>='$numPassengers'";
+    $result = mysqli_query($db, $query);
+
+    // If there are results, store them in an array
+    if (mysqli_num_rows($result) > 0) {
+        $flights = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $flights[] = $row;
+        }
+    } else {
+        $message = "No flights found.";
+    }
+
+    // Close the database connection
+    mysqli_close($db);
+}
+
+// Render the flight search results
+include("header.php");
+include("flight-search-results.php");
+include("footer.php");
+
+Please note that this code is just a sample and would need to be adapted to match the structure of your database and other specific requirements of your project. In this sample code, it's supposed that you have a database that have the structure of flights table, with departure_city, arrival_city, departure_date and seats_available field.
+Please let me know if you have any questions.
+
+
+
+
+anshuk jirli
+what are the statements' meaning which come after the //render the flight search results comment.
+The statements after the comment "// Render the flight search results" are used to display the search results to the user. These statements include the following:
+
+include("header.php"): This statement is including a PHP file named "header.php", this file generally contains the HTML code for the top section of the webpage which usually contains the common elements like a website logo and navigation.
+
+include("flight-search-results.php"): This statement is including another PHP file named "flight-search-results.php", in this file you would have the code that is responsible for displaying the flight search results to the user. This file will use the array of flights returned by the database query, to show the search results in the webpage with HTML table format.
+
+include("footer.php") : Similar to the first statement, this one includes a PHP file named "footer.php", this file contains the code for the bottom section of the webpage, this might include links to terms and conditions or a contact us page, as well as any other elements that are common across multiple pages of the website.
+
+By including these files in this way, you can keep the code for different parts of the webpage separate and organize, and make it easier to maintain and update the website.
+
+
+
+
+anshuk jirli/////////////////////////////////
+
+generate flight-search-results.php prgram.
+Sure, here is a sample code of how you could display the flight search results in a table format:
+
+Copy code
+<?php
+if(isset($flights)){
+    // Display flight search results
+    echo "<table>";
+    echo "<tr> <th>Flight ID</th> <th>Departure City</th> <th>Arrival City</th> <th>Departure Time</th> <th>Arrival Time</th> <th>Price</th> </tr>";
+    foreach($flights as $flight) {
+        echo "<tr>";
+        echo "<td>" . $flight['id'] . "</td>";
+        echo "<td>" . $flight['departure_city'] . "</td>";
+        echo "<td>" . $flight['arrival_city'] . "</td>";
+        echo "<td>" . $flight['departure_time'] . "</td>";
+        echo "<td>" . $flight['arrival_time'] . "</td>";
+        echo "<td>" . $flight['price'] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    // Handle error
+    echo "No flights found for the selected criteria";
+}
+?>
+This code is assuming that the variable $flights contains the search results retrieved from the database, it's checking if the variable is set, if so it will display the flight data inside a table, with each flight's data in a row, the table have headings like flight ID, departure city, arrival city and so on, the table data is extracted using a foreach loop. If the variable isn't set, it would display an error message "No flights found for the selected criteria"
+
+This is a sample code and you may need to tweak it to match your specific needs and design preferences.
+Please let me know if you have any questions or if there's anything else I can help with.

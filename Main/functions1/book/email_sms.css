@@ -1,0 +1,7 @@
+/*Send email or SMS confirmation of the booking and itinerary:*/
+ 
+#confirmation-message {
+    padding: 20px;
+    background-color: #d9ffcc;
+    border: 1px solid #b2ff99;
+  }

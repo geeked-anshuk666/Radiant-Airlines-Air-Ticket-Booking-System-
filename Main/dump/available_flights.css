@@ -1,0 +1,22 @@
+
+
+/*Display available flights:*/
+ 
+#flight-results {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#flight-results th, #flight-results td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#flight-results th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+

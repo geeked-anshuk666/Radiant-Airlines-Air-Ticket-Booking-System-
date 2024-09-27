@@ -1,0 +1,214 @@
+//Search for flights:
+ 
+ <?php
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+     $fromCity = $_POST["from-city"];
+     $toCity = $_POST["to-city"];
+     $departureDate = $_POST["departure-date"];
+     $numPassengers = $_POST["num-passengers"];
+ 
+     // Connect to the database
+     $db = mysqli_connect("host", "username", "password", "dbname");
+ 
+     // Query the database for flights
+     $query = "SELECT * FROM flights WHERE departure_city='$fromCity' AND arrival_city='$toCity' AND departure_date='$departureDate' AND seats_available>='$numPassengers'";
+     $result = mysqli_query($db, $query);
+ 
+     // If there are results, store them in an array
+     if (mysqli_num_rows($result) > 0) {
+         $flights = array();
+         while ($row = mysqli_fetch_assoc($result)) {
+             $flights[] = $row;
+         }
+     }
+     else {
+         $message = "No flights found.";
+     }
+     // Close the database connection
+     mysqli_close($db);
+ }
+ ?>
+ Display available flights:
+  
+ <?php
+ if (isset($flights)) {
+     echo "<table id='flight-results'>";
+     echo "<tr>";
+     echo "<th>Airline</th>";
+     echo "<th>Departure Time</th>";
+     echo "<th>Arrival Time</th>";
+     echo "<th>Duration</th>";
+     echo "<th>Price</th>";
+     echo "<th>Select</th>";
+     echo "</tr>";
+     foreach ($flights as $flight) {
+         echo "<tr>";
+         echo "<td>" . $flight["airline"] . "</td>";
+         echo "<td>" . $flight["departure_time"] . "</td>";
+         echo "<td>" . $flight["arrival_time"] . "</td>";
+         echo "<td>" . $flight["duration"] . "</td>";
+         echo "<td>" . $flight["price"]."</td>";
+ 
+ 
+ Continue 
+ Sure, here's the rest of the sample PHP code for the functionalities 2, 3, 4, and 5 that I listed earlier:
+ 
+ Display available flights (continued):
+  
+         echo "<td><input type='radio' name='flight-choice' value='" . $flight["id"] . "'></td>";
+         echo "</tr>";
+     }
+     echo "</table>";
+ }
+ else if (isset($message)) {
+     echo "<p>$message</p>";
+ }
+ Allow users to enter their personal and payment information:
+  
+ <?php
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+     $name = $_POST["name"];
+     $email = $_POST["email"];
+     $phone = $_POST["phone"];
+     $creditCard = $_POST["credit-card"];
+     $expiryDate = $_POST["expiry-date"];
+     $cvv = $_POST["cvv"];
+     $flightId = $_POST["flight-choice"];
+ 
+     // Connect to the database
+     $db = mysqli_connect("host", "username", "password", "dbname");
+ 
+     // Insert the booking into the database
+     $query = "INSERT INTO bookings (name, email, phone, credit_card, expiry_date, cvv, flight_id) VALUES ('$name', '$email', '$phone', '$creditCard', '$expiryDate', '$cvv', '$flightId')";
+     mysqli_query($db, $query);
+ 
+     // Get the booking ID
+     $bookingId = mysqli_insert_id($db);
+ 
+     // Update the seats_available in the flight table
+     $query = "UPDATE flights SET seats_available = seats_available - 1 WHERE id = '$flightId'";
+     mysqli_query($db, $query);
+ 
+     // Close the database connection
+     mysqli_close($db);
+ 
+     // Send the confirmation email and SMS
+     sendConfirmationEmail($email, $bookingId);
+     sendConfirmationSMS($phone, $bookingId);
+ }
+ Offer various payment options:
+  
+ <?php
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+     $paymentMethod = $_POST["payment-method"];
+     $bookingId = $_POST["booking-id"];
+ 
+     // Connect to the database
+     $db = mysqli_connect("host", "username", "password", "dbname");
+ 
+     // Query the database for the booking
+     $query = "SELECT * FROM bookings WHERE id='$bookingId'";
+     $result = mysqli_query($db, $query);
+     $booking = mysqli_fetch_assoc($result);
+ 
+     if ($paymentMethod == "credit-card") {
+         // Process credit card payment
+         processCreditCardPayment($booking["credit_card"], $booking["total_price"]);
+     }
+     else if ($paymentMethod == "paypal") {
+         // Redirect to PayPal payment page
+         header("Location: https://www.paypal.com/payment?bookingId=$bookingId");
+     }
+     else if
+ 
+ 
+ Continue 
+ Sure, here's the rest of the sample PHP code for functionality 4 and 5 that I listed earlier:
+ 
+ Offer various payment options (continued):
+  
+     ($paymentMethod == "apple-pay") {
+         // Process Apple Pay payment
+         processApplePayPayment($booking["total_price"]);
+     }
+     else {
+         // Handle invalid payment method
+         $errorMessage = "Invalid payment method selected";
+     }
+ 
+     // Close the database connection
+     mysqli_close($db);
+ }
+ Send email or SMS confirmation of the booking and itinerary:
+  
+ function sendConfirmationEmail($email, $bookingId) {
+     // Query the database for the booking details
+     $db = mysqli_connect("host", "username", "password", "dbname");
+     $query = "SELECT * FROM bookings WHERE id='$bookingId'";
+     $result = mysqli_query($db, $query);
+     $booking = mysqli_fetch_assoc($result);
+     $flightId = $booking["flight_id"];
+ 
+     // Query the database for the flight details
+     $query = "SELECT * FROM flights WHERE id='$flightId'";
+     $result = mysqli_query($db, $query);
+     $flight = mysqli_fetch_assoc($result);
+ 
+     // Compose the email
+     $to = $email;
+     $subject = "Booking Confirmation";
+     $message = "Thank you for booking with us!\n\n" .
+                "Your itinerary:\n" .
+                "Airline: " . $flight["airline"] . "\n" .
+                "Departure City: " . $flight["departure_city"] . "\n" .
+                "Arrival City: " . $flight["arrival_city"] . "\n" .
+                "Departure Time: " . $flight["departure_time"] . "\n" .
+                "Arrival Time: " . $flight["arrival_time"] . "\n\n" .
+                "You can view your booking details by logging into your account on our website.\n\n" .
+                "Thank you for choosing us!";
+     $headers = "From: noreply@airline.com\r\n";
+     mail($to, $subject, $message, $headers);
+ 
+     // Close the database connection
+     mysqli_close($db);
+ }
+ 
+ function sendConfirmationSMS($phone, $bookingId) {
+     // Query the database for the booking details
+     $db = mysqli_connect("host", "username", "password", "dbname");
+     $query = "SELECT * FROM bookings WHERE id='$bookingId'";
+     $result = mysqli_query($db, $query);
+     $booking = mysqli_fetch_assoc($result);
+     $flightId = $booking["flight_id"];
+ 
+     // Query the database for the flight details
+     $query = "SELECT * FROM flights WHERE id='$flightId'";
+     $result = mysqli_query($db, $query);
+     $flight = mysqli_fetch_assoc($result);
+ 
+     // Compose the SMS
+    
+ 
+ 
+ Continue
+ Sure, here's the rest of the sample PHP code for functionality 5 that I listed earlier:
+ 
+ Send email or SMS confirmation of the booking and itinerary (continued):
+  
+     $to = $phone;
+     $message = "Thank you for booking with us! Your itinerary: Airline: " . $flight["airline"] . ", Departure: " . $flight["departure_city"] . ", Arrival: " . $flight["arrival_city"] . ", Departure Time: " . $flight["departure_time"] . ", Arrival Time: " . $flight["arrival_time"] . ". View your booking details in your account on our website. Thank you for choosing us!";
+ 
+     // Use a SMS gateway API to send the SMS
+     sendSMS($to, $message);
+ 
+     // Close the database connection
+     mysqli_close($db);
+ }
+ Please note that the above code snippet is just a sample and you need to change the implementation according to your own needs and requirements, such as implementation of the processCreditCardPayment(),processApplePayPayment(), sendSMS() and also you should use an appropriate library to connect to the database or use ORM(Object-relational mapping) to access the database. Additionally, it is recommended to use a framework to handle the routing and views.
+ 
+ Please let me know if you have any other questions or if there's anything else I can help you with.
+
+
+
+ Updated version::::::
+    

@@ -1,0 +1,23 @@
+.back {
+    background-image: url('assets/images/6.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    
+    
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    z-index: 2;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    background-color: aliceblue;
+    
+}
+th {
+    background-color: #ff0000;
+}

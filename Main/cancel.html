@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cancel.css">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .logo{
+              
+          position: absolute;
+          top: -30px;
+          left: -40px;
+          z-index: 0;
+          height: 250px;
+          width: 400px;
+          /*mix-blend-mode: multiply;*/
+          
+        
+        }
+      
+        
+        </style>
+        
+        
+        <a href="home.php"><image class="logo" src="logo.png"/></a>
+    <div class="back">
+    <form action="cancel.php" method="post">
+        <label for="ticket_id">Ticket ID:</label>
+        <input type="number" id="ticket_id" name="ticket_id"><br>
+        <input type="submit" value="Delete">
+    </form>
+</div>
+</body>
+</html>

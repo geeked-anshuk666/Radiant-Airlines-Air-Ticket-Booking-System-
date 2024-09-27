@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="register.css">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+     body {
+        background-image: url('assets/register.png');
+        background-attachment: fixed;
+        background-size: cover;
+        background-position:center,top;
+        
+      }
+  .logo{
+        
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    
+    height: 250px;
+    width: 400px;
+    /*mix-blend-mode: multiply;*/
+    
+  
+  }
+
+  
+  </style>
+  
+  
+  <image class="logo" src="logo.png"/>
+
+          <form action="register.php" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <input type="submit" value="Register">
+            <a class="btn btn-primary" href="index.php" role="button">Login after you register</a>
+
+</form>
+</body>
+</html>
+
+

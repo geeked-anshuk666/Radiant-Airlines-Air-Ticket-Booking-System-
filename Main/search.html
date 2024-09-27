@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="search.css">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .logo{
+              
+          position: absolute;
+          top: -40px;
+          left: -40px;
+          
+          height: 250px;
+          width: 400px;
+          /*mix-blend-mode: multiply;*/
+          
+        
+        }
+      
+        
+        </style>
+        
+        
+        <image class="logo" src="logo.png"/>
+<form action="search.php" method="post">
+    <label for="source">Source:</label>
+    <select id="source" name="source">
+        <option value="Ahmedabad">Ahmedabad </option>
+        <option value="Banglore">Banglore </option>
+        <option value="Belgaum">Belgaum </option>
+        <option value="Chennai">Chennai </option>
+        <option value="Goa">Goa </option>
+        <option value="Hyderabad">Hyderabad </option>
+        <option value="Jaipur"> Jaipur</option>
+        <option value="Kolkata"> Kolkata</option>
+        <option value="Mumbai"> Mumbai	</option>
+        <option value="Pune">Pune </option>
+        <option value="Surat"> Surat</option>
+    </select>
+    
+    <label for="Destination">Destination:</label>
+    
+    <select id="Destination" name="Destination">
+        <option value="Ahmedabad">Ahmedabad </option>
+        <option value="Banglore">Banglore </option>
+        <option value="Belgaum">Belgaum </option>
+        <option value="Chennai">Chennai </option>
+        <option value="Goa">Goa </option>
+        <option value="Hyderabad">Hyderabad </option>
+        <option value="Jaipur"> Jaipur</option>
+        <option value="Kolkata"> Kolkata</option>
+        <option value="Mumbai"> Mumbai	</option>
+        <option value="Pune">Pune </option>
+        <option value="Surat"> Surat</option>
+        
+            
+        </select>
+    <!--<label for="departure">Departure :</label>
+    <input type="date" id="departure" name="departure"><br>
+    <label for="arrival">Arrival :</label>
+    <input type="date" id="arrival" name="arrival"><br>
+    <label for="number_of_passengers">Number of Passengers:</label>
+    <input type="number" id="number_of_passengers" name="number_of_passengers"><br>-->
+    <input type="submit" value="Search">
+
+</form>
+
+</body>
+</html>

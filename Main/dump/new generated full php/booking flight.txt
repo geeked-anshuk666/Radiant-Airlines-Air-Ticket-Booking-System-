@@ -1,0 +1,85 @@
+Sure, here is a sample PHP program that demonstrates the functionality of booking a flight:
+
+Copy code
+<?php
+
+// Connect to the database
+$db = mysqli_connect("host", "username", "password", "dbname");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $creditCard = $_POST["credit-card"];
+    $expiryDate = $_POST["expiry-date"];
+    $cvv = $_POST["cvv"];
+    $flightId = $_POST["flight-choice"];
+    
+    // Insert the booking into the database
+    $query = "INSERT INTO bookings (name, email, phone, credit_card, expiry_date, cvv, flight_id) VALUES ('$name', '$email', '$phone', '$creditCard', '$expiryDate', '$cvv', '$flightId')";
+    mysqli_query($db, $query);
+    
+    // Get the booking ID
+    $bookingId = mysqli_insert_id($db);
+    
+    // Update the seats_available in the flight table
+    $query = "UPDATE flights SET seats_available = seats_available - 1 WHERE id = '$flightId'";
+    mysqli_query($db, $query);
+
+    // Close the database connection
+    mysqli_close($db);
+}
+
+// Render the booking confirmation page
+include("header.php");
+include("booking-confirmation.php");
+include("footer.php");
+This script is retrieving the form data of the booking and inserting it into the database then updates the flight table in terms of available seats, and then it renders the booking confirmation page.
+
+As with the code I provided before, please note that this is a sample code and may need to be adapted to match the structure of
+
+
+
+//////////////
+
+Sure, here is a sample PHP program that demonstrates the functionality of booking a flight:
+
+Copy code
+<?php
+
+// Connect to the database
+$db = mysqli_connect("host", "username", "password", "dbname");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $creditCard = $_POST["credit-card"];
+    $expiryDate = $_POST["expiry-date"];
+    $cvv = $_POST["cvv"];
+    $flightId = $_POST["flight-choice"];
+    
+    // Insert the booking into the database
+    $query = "INSERT INTO bookings (name, email, phone, credit_card, expiry_date, cvv, flight_id) VALUES ('$name', '$email', '$phone', '$creditCard', '$expiryDate', '$cvv', '$flightId')";
+    mysqli_query($db, $query);
+    
+    // Get the booking ID
+    $bookingId = mysqli_insert_id($db);
+    
+    // Update the seats_available in the flight table
+    $query = "UPDATE flights SET seats_available = seats_available - 1 WHERE id = '$flightId'";
+    mysqli_query($db, $query);
+
+    // Close the database connection
+    mysqli_close($db);
+}
+
+// Render the booking confirmation page
+include("header.php");
+include("booking-confirmation.php");
+include("footer.php");
+This script is retrieving the form data of the booking and inserting it into the database then updates the flight table in terms of available seats, and then it renders the booking confirmation page.
+
+As with the code I provided before, please note that this is a sample code and may need to be adapted to match the structure of

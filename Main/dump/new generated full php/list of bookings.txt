@@ -1,0 +1,69 @@
+generate full php program for the 4th functionality.
+Sure, here is a sample PHP program that demonstrates the functionality of displaying a list of all flight bookings made by a user:
+
+Copy code
+<?php
+// Connect to the database
+$db = mysqli_connect("host", "username", "password", "dbname");
+
+// Retrieve the user's email address
+$email = $_SESSION["user_email"];
+
+// Query the database for the user's bookings
+$query = "SELECT * FROM bookings WHERE email='$email'";
+$result = mysqli_query($db, $query);
+
+// If there are results, store them in an array
+if (mysqli_num_rows($result) > 0) {
+    $bookings = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $bookings[] = $row;
+    }
+} else {
+    $message = "No bookings found for this user.";
+}
+
+// Close the database connection
+mysqli_close($db);
+
+// Render the bookings list
+include("header.php");
+include("bookings-list.php");
+include("footer.php");
+This script is using the user's email address that is stored in the session to query the database and retrieve the flight bookings associated with this user. After that, it's displaying the bookings list by including the 'bookings-list.php' file
+
+This code is using the session variable 'user_email' to get the email of the user that is logged in, and it is assuming that you have a bookings table in your database, and you've already implemented user authentication and session handling in your project.
+Please let me know if you have any question or if there's anything else I can help with.
+
+
+
+
+anshuk jirli
+generate bookings-list.php program.
+Sure, here is a sample code of how you could display a list of bookings made by a user:
+
+Copy code
+<?php
+if(isset($bookings)){
+    // Display bookings list
+    echo "<table>";
+    echo "<tr> <th>Booking ID</th> <th>Name</th> <th>Email</th> <th>Phone</th> <th>Flight ID</th> <th>Price</th> </tr>";
+    foreach($bookings as $booking) {
+        echo "<tr>";
+        echo "<td>" . $booking['id'] . "</td>";
+        echo "<td>" . $booking['name'] . "</td>";
+        echo "<td>" . $booking['email'] . "</td>";
+        echo "<td>" . $booking['phone'] . "</td>";
+        echo "<td>" . $booking['flight_id'] . "</td>";
+        echo "<td>" . $booking['price'] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    // Handle error
+    echo "No bookings found for this user.";
+}
+?>
+This code snippet is displaying the list of bookings made by the user. It is checking if the $bookings variable is set, if so it will display the bookings data inside a table, with each booking's data in a row. The table has headings like booking ID, name, email and so on, the table data is extracted using a foreach loop. If the variable isn't set, it would display an error message "No bookings found for this user.".
+
+Please note that this is a sample code,

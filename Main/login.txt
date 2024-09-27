@@ -1,0 +1,133 @@
+Sure, here is an example of a PHP program that uses the MySQLi library to handle a login form with fields for username, email, and password:
+
+Copy code
+<?php
+  // Check if the form was submitted
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the form data
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validate the form data
+    if (empty($username) || empty($email) || empty($password)) {
+      $error = 'All fields are required';
+    } else {
+      // Connect to the database
+      $host = 'localhost';
+      $dbname = 'mydatabase';
+      $usernameDB = 'root';
+      $passwordDB = 'rootpassword';
+      $conn = new mysqli($host, $usernameDB, $passwordDB, $dbname);
+      if ($conn->connect_error) {
+        $error = 'Error connecting to the database: ' . $conn->connect_error;
+      } else {
+        // Prepare and execute the SQL statement
+        $stmt = $conn->prepare('SELECT * FROM users WHERE username = ? AND email = ? AND password = ?');
+        $stmt->bind_param('sss', $username, $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        // If a user was found, log them in
+        if ($user) {
+          session_start();
+          $_SESSION['user'] = $user;
+          header('Location: /dashboard.php');
+          exit;
+        } else {
+          $error = 'Invalid username, email, or password';
+        }
+      }
+    }
+  }
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+</head>
+<body>
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <br><br>
+    <input type="submit" value="Login">
+  </form>
+  <?php if (isset($error)) : ?>
+    <p style="color: red;"><?php echo $error; ?></p>
+  <?php endif; ?>
+</body>
+</html>
+This program first checks if the form has been submitted using the $_SERVER['REQUEST_METHOD'] variable. If the form has been submitted, it gets the form data from the $_POST superglobal, and then validate if all the fields are filled or not. If any of the field is empty, it will show an error message. If all the fields are filled, then it connects to the database using the mysqli library and check if the
+
+
+
+
+anshuk jirli
+generate a modern css for the above program.
+Here's an example of some CSS that can be used to style the login page HTML code I provided earlier:
+
+Copy code
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  font-size: 16px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+This CSS will give your login page a modern and clean look, with a centered form on a gray background, white form background, nice font size and padding, and a nice hover effect on the submit button. The input type for email is also added.
+It's important to note that this is just a sample, you can further customize it according to your design requirement.
+
+
+
